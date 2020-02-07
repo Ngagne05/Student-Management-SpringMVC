@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Students list</title>
+  <link rel="stylesheet" type="text/css" href="/css/studentsheet.css" />
+</head>
+<body>	
+	<div th:replace="Layout::Layout"></div>
+	<div>
+		<form th:action="@{Index}" method="get">
+			<label for="name">name:</label>
+			<input type="text" name="name"/>
+			<button type="submit">search</button>
+		</form>
+	</div>
+	
+	<div>
+		  <table>
+			<thead>
+				<tr>
+					<th>ID</th> <th>name</th> <th>email</th><th>birth date</th>
+					<th>photo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="s:${students}">
+					<td th:text="${s.id}"></td>
+					<td th:text="${s.name}"></td>
+					<td th:text="${s.email}"></td>
+					<td th:text="${s.birthdate}"></td>
+					<!-- <td th:text="${s.photo}"></td>
+					  <td>
+						<img class="td" th:src="'/'+${s.id}" width="100px" height="100px"/>
+					</td>
+					-->
+					<td>
+						<img  th:src="@{getPhoto(id=${s.id})}" width="100px" height="100px"/>
+					</td>
+					
+					<td><a th:href="@{EditForm(id=${s.id})}">Edit</a></td>
+					<td><a onclick="return confirm('Are you sure ')" th:href="@{Delete(id=${s.id})}">Delete</a></td>
+				</tr>
+			</tbody>		
+		</table>
+	</div>
+	<div>
+		<ul >
+			<li th:each="p:${#numbers.sequence(1,totalPages)}" >
+				<a th:text="${p}" th:href="@{Index(page=${p}-1,name=${name})}" 
+				 th:style="${p==currentPage}?'background-color:#6495ED':'' "></a>
+			</li>
+			
+		</ul>
+	</div>
+	
+</body>
+</html>

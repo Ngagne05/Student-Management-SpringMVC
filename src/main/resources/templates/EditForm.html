@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Edit a student</title>
+<link rel="stylesheet" type="text/css" href="/css/StudentForm.css"/>
+</head>
+<body>
+	<a th:href="@{Index}">Home</a>
+	<div>
+		<fieldset>
+			<legend>Edit student</legend>
+			<form th:action="@{Edit}" method="post" th:object="${student}" enctype="multipart/form-data">
+				<input th:field="*{id}"	type="hidden"/>
+				<label for="nom"> name</label>
+				<input type="text" id="nom" th:field="*{name}" /><br/><!-- on we can also use ${student.name}@ -->
+				<label for="dateNaissance"> birth date</label>
+				<input type="date" id="dateNaissance" th:field="*{birthdate}" /><br/>
+				<label for="courrier"> Email</label>
+				<input type="text" id="courrier" th:field="*{email}"/><br/>
+				<label for="photo"> photo</label>
+				<input type="file" id="photo" name="picture"  /><br/>
+				<input type="submit" value="submit"/><br/>
+			</form>
+		</fieldset>
+		
+	</div>
+</body>
+</html>
